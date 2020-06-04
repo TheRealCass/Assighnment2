@@ -98,7 +98,7 @@ public class A2Q1SortingTemplate {
 
     } // end testSorts
 
-/*********** methods called by testSorts *************************/
+  /*********** methods called by testSorts *************************/
 
     /*******************************************************************
      * tryOneSort:
@@ -167,99 +167,111 @@ public class A2Q1SortingTemplate {
 /********** Add sort methods here ********************/
 
 
+  /**
+   * non recurcive insertion sort
+   * @param array arry of intergers to sort
+   */
+  private static void insertionSort(int[] array) {
+    efwf
+
+  } 
 
 
-/****************** Other miscellaneous methods ********************/
 
-    /*******************************************************************
-     * swap
-     *
-     * Purpose: Swap the items stored in positions i and j in array.
-     *
-     ******************************************************************/
-    private static void swap( int[] array, int i, int j ) {
-		int temp = array[ i ];
-		array[ i ] = array[ j ];
-		array[ j ] = temp;
-    } // end swap
+  /****************** Other miscellaneous methods ********************/
 
+   
 
-    /*******************************************************************
-     * isSorted
-     *
-     * Purpose: Return true if the input array is sorted into
-     *          ascending order; return false otherwise.
-     *
-     * Idea: If every item is <= to the item immediately after it,
-     *       then the whole list is sorted.
-     *
-     ******************************************************************/
-    public static boolean isSorted( int[] array ) {
-		boolean sorted = true;
+  /*******************************************************************
+   * swap
+   *
+   * Purpose: Swap the items stored in positions i and j in array.
+   *
+   ******************************************************************/
+  private static void swap( int[] array, int i, int j ) {
+    int temp = array[ i ];
+    array[ i ] = array[ j ];
+    array[ j ] = temp;
+  } // end swap
 
-		// Loop through all adjacent pairs in the
-		// array and check if they are in proper order.
-		// Stops at first problem found.
-		for ( int i = 1; sorted && (i < array.length); i++ )
-		    sorted = array[i-1] <=  array[i];
-		return sorted;
-    } // end method isSorted
+  /*******************************************************************
+  * isSorted
+  *
+  * Purpose: Return true if the input array is sorted into
+  *          ascending order; return false otherwise.
+  *
+  * Idea: If every item is <= to the item immediately after it,
+  *       then the whole list is sorted.
+  *
+  ******************************************************************/
+  public static boolean isSorted( int[] array ) {
+    boolean sorted = true;
 
-    /*******************************************************************
-     * checkArray
-     *
-     * Purpose: Print an error message if array is not
-     *          correctly sorted into ascending order.
-     *          (If the array is correctly sorted, checkArray does nothing.)
-     *
-     ******************************************************************/
-    private static void checkArray(int[] array, String sortType) {
-		if ( !isSorted( array ) )
-		    System.out.println( sortType + " DID NOT SORT CORRECTLY *** ERROR!!" );
+    // Loop through all adjacent pairs in the
+    // array and check if they are in proper order.
+    // Stops at first problem found.
+    for ( int i = 1; sorted && (i < array.length); i++ )
+      sorted = array[i-1] <=  array[i];
+    return sorted;
+  } // end method isSorted
+
+  public static boolean isSorted () {
+    
+  }
+
+  /*******************************************************************
+  * checkArray
+  *
+  * Purpose: Print an error message if array is not
+  *          correctly sorted into ascending order.
+  *          (If the array is correctly sorted, checkArray does nothing.)
+  *
+  ******************************************************************/
+  private static void checkArray(int[] array, String sortType) {
+    if ( !isSorted( array ) )
+      System.out.println( sortType + " DID NOT SORT CORRECTLY *** ERROR!!" );
     }
 
-    /*******************************************************************
-     * fillArray
-     *
-     * Purpose: Fills the given array with the numbers 0 to array.length-1.
-     *
-     ******************************************************************/
-    public static void fillArray( int[] array ) {
+  /*******************************************************************
+  * fillArray
+  *
+  * Purpose: Fills the given array with the numbers 0 to array.length-1.
+  *
+  ******************************************************************/
+  public static void fillArray( int[] array ) {
 
-		for ( int i = 0; i < array.length; i++ ) {
-		    array[i] = i;
-		} // end for
+    for ( int i = 0; i < array.length; i++ ) {
+      array[i] = i;
+    } // end for
+  } // end fillArray
 
-    } // end fillArray
+  /*******************************************************************
+  * randomizeArray
+  *
+  * Purpose: Does numberOfSwaps swaps of randomly-chosen positions
+  *          in the given array.
+  *
+  ******************************************************************/
+  public static void randomizeArray( int[] array, int numberOfSwaps ) {
+    for ( int count = 0; count < numberOfSwaps; count++ ) {
+      int i = generator.nextInt( array.length );
+      int j = generator.nextInt( array.length );
+        swap( array, i, j );
+    }
+  } // end randomizeArray
 
-    /*******************************************************************
-     * randomizeArray
-     *
-     * Purpose: Does numberOfSwaps swaps of randomly-chosen positions
-     *          in the given array.
-     *
-     ******************************************************************/
-    public static void randomizeArray( int[] array, int numberOfSwaps ) {
-		for ( int count = 0; count < numberOfSwaps; count++ ) {
-		    int i = generator.nextInt( array.length );
-		    int j = generator.nextInt( array.length );
-		    swap( array, i, j );
-		}
-    } // end randomizeArray
+  /*******************************************************************
+  * arithmeticMean
+  *
+  * Purpose: Compute the average of long values.
+  *          To avoid long overflow, use type double in the computation.
+  *
+  ******************************************************************/
+  public static double arithmeticMean(long data[]) {
+    double sum = 0;
+    for (int i = 0; i < data.length; i++)
+        sum += (double)data[i];
+    return sum / (double)data.length;
+  } // end arithmeticMean
 
-
-    /*******************************************************************
-     * arithmeticMean
-     *
-     * Purpose: Compute the average of long values.
-     *          To avoid long overflow, use type double in the computation.
-     *
-     ******************************************************************/
-    public static double arithmeticMean(long data[]) {
-		double sum = 0;
-		for (int i = 0; i < data.length; i++)
-		    sum += (double)data[i];
-		return sum / (double)data.length;
-    } // end arithmeticMean
-
-} // end class A2Q1SortingTemplate
+  } // end class A2Q1SortingTemplate
