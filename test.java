@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class test {
 
 
@@ -6,21 +8,25 @@ public class test {
     
     public static void main(String[] args) {
         int[] input = { 4, 2, 9, 6, 23, 12, 34, 0, 1 }; // array to be sorted
-        for (int i = 0; i < input.length; i++) {
-            System.out.print(input[i] + "\t");
-        }
-        System.out.println();
-        // int[] result = insertionSort2(input);
-        // for (int i = 0; i < input.length; i++) {
-        //     System.out.print(result[i] + "\t");
-        // }
-        // System.out.println("\n vs the old one");
-        // insertionSort(input);
-        System.out.println("\n vs the old one");
-        int[] result = insertionSort3(input, 0, input.length-1);
-        for (int i = 0; i < input.length; i++) {
-            System.out.print(result[i] + "\t");
-        }
+
+        System.out.println(Arrays.toString(input));
+
+
+    //     for (int i = 0; i < input.length; i++) {
+    //         System.out.print(input[i] + "\t");
+    //     }
+    //     System.out.println();
+    //     // int[] result = insertionSort2(input);
+    //     // for (int i = 0; i < input.length; i++) {
+    //     //     System.out.print(result[i] + "\t");
+    //     // }
+    //     // System.out.println("\n vs the old one");
+    //     // insertionSort(input);
+    //     System.out.println("\n vs the old one");
+    //     int[] result = insertionSort3(input, 0, input.length-1);
+    //     for (int i = 0; i < input.length; i++) {
+    //         System.out.print(result[i] + "\t");
+    //     }
         
 
 

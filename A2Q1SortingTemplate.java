@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 
+
 /*
  * A2Q1SortingTemplate
  *
@@ -10,9 +11,13 @@ import java.io.*;
 
 public class A2Q1SortingTemplate {
 
+    //bedug
+    private static final boolean DEBUG = true;
+
     // Control the testing
     private static final int ARRAY_SIZE = 10000;
     private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
+    private static final String NS = " nano secounds.";
 
     // Control the randomness
     private static final int NUM_SWAPS = ARRAY_SIZE / 2;
@@ -40,11 +45,11 @@ public class A2Q1SortingTemplate {
      *
      ******************************************************************/
     public static void main( String[] args ) {
-		System.out.println( "\n\nCOMP 2140 A2Q1 Sorting Test --- Summer 2020\n" );
+		System.out.println( "\n\nCOMP 2140 A2Q1 Sorting Test --- Summer 2020.\n" );
 
 		testSorts();
 
-		System.out.println( "\nProcessing ends normally\n" );
+		System.out.println( "\nProcessing ends normally.\n" );
     } // end main
 
 
@@ -70,31 +75,31 @@ public class A2Q1SortingTemplate {
 		fillArray( array );
 
 		// Now run the experiments on all the sorts
-		System.out.println("Array size: " + ARRAY_SIZE + "\nNumber of swaps: " + NUM_SWAPS);
-		System.out.println("Number of trials of each sort: " + SAMPLE_SIZE );
+		System.out.println("Array size: " + ARRAY_SIZE + ".\nNumber of swaps: " + NUM_SWAPS + ".");
+		System.out.println("Number of trials of each sort: " + SAMPLE_SIZE + "." );
 
 		// Stats for each run
 		System.out.println("\nInsertion sort mean: "
 			   + tryOneSort( array, sortTime, INSERTION_SORT )
-			   + " ns" );
+			   + NS );
 		System.out.println("Bubble sort mean: "
 			   + tryOneSort( array, sortTime, BUBBLE_SORT )
-			   + " ns" );
+			   + NS );
 		System.out.println("Selection sort mean: "
 			   + tryOneSort( array, sortTime, SELECTION_SORT )
-			   + " ns" );
+			   + NS );
 		System.out.println("Merge sort mean: "
 			   + tryOneSort( array, sortTime, MERGE_SORT )
-			   + " ns" );
+			   + NS );
 		System.out.println("Quick sort mean: "
 			   + tryOneSort( array, sortTime, QUICK_SORT )
-			   + " ns" );
+			   + NS );
 		System.out.println("Hybrid quick sort mean: "
 			   + tryOneSort( array, sortTime, HYBRID_QUICK_SORT )
-			   + " ns" );
+			   + NS );
 		System.out.println("Shell sort mean: "
 			   + tryOneSort( array, sortTime, SHELL_SORT )
-			   + " ns" );
+			   + NS );
 
     } // end testSorts
 
@@ -125,37 +130,38 @@ public class A2Q1SortingTemplate {
 				insertionSort( array );
 				stop = System.nanoTime();
 				checkArray(array, "Insertion sort");
-		    } else if ( whichSort == BUBBLE_SORT ) {
-				start = System.nanoTime();
-				bubbleSort( array );
-				stop = System.nanoTime();
-				checkArray(array, "Bubble sort");
-		    } else if ( whichSort == SELECTION_SORT ) {
-				start = System.nanoTime();
-				selectionSort( array );
-				stop = System.nanoTime();
-				checkArray(array, "Selection sort");
-		    } else if ( whichSort == MERGE_SORT ) {
-				start = System.nanoTime();
-				mergeSort( array );
-				stop = System.nanoTime();
-				checkArray(array, "Merge sort");
-		    } else if ( whichSort == QUICK_SORT ) {
-				start = System.nanoTime();
-				quickSort( array );
-				stop = System.nanoTime();
-				checkArray(array, "Quick sort");
-		    } else if ( whichSort == HYBRID_QUICK_SORT ) {
-				start = System.nanoTime();
-				hybridQuickSort( array );
-				stop = System.nanoTime();
-				checkArray(array, "Hybrid quick sort");
-		    } else if ( whichSort == SHELL_SORT ) {
-				start = System.nanoTime();
-				shellSort( array );
-				stop = System.nanoTime();
-				checkArray(array, "Shell sort");
-		    }
+        } 
+        // else if ( whichSort == BUBBLE_SORT ) {
+				// start = System.nanoTime();
+        // bubbleSort( array );
+				// stop = System.nanoTime();
+				// checkArray(array, "Bubble sort");
+		    // } else if ( whichSort == SELECTION_SORT ) {
+				// start = System.nanoTime();
+				// selectionSort( array );
+				// stop = System.nanoTime();
+				// checkArray(array, "Selection sort");
+		    // } else if ( whichSort == MERGE_SORT ) {
+				// start = System.nanoTime();
+				// mergeSort( array );
+				// stop = System.nanoTime();
+				// checkArray(array, "Merge sort");
+		    // } else if ( whichSort == QUICK_SORT ) {
+				// start = System.nanoTime();
+				// quickSort( array );
+				// stop = System.nanoTime();
+				// checkArray(array, "Quick sort");
+		    // } else if ( whichSort == HYBRID_QUICK_SORT ) {
+				// start = System.nanoTime();
+				// hybridQuickSort( array );
+				// stop = System.nanoTime();
+				// checkArray(array, "Hybrid quick sort");
+		    // } else if ( whichSort == SHELL_SORT ) {
+				// start = System.nanoTime();
+				// shellSort( array );
+				// stop = System.nanoTime();
+				// checkArray(array, "Shell sort");
+		    // }
 		    elapsedTime = stop - start;
 		    sortTime[i] = elapsedTime;
 		} // end for
@@ -164,23 +170,49 @@ public class A2Q1SortingTemplate {
     } // end tryOneSort
 
 
-/********** Add sort methods here ********************/
+  /********** Add sort methods here ********************/
+
+  /**
+   * non recurcive insertion sort
+   * @param array arry of intergers to sort
+   * @param start index position to start sorting from
+   * @param end index position to stop sorting
+   */
+  private static void insertionSort(int[] array, int start, int end) {
+    for (int i = 0; i < array.length -1; i++) {
+      for (int j = i+1; j > 0; j--) {
+          if (array[j-1] >= array[j]) {
+            swap(array, j, j-1);
+          }
+      }
+    }
+  }
 
 
   /**
    * non recurcive insertion sort
    * @param array arry of intergers to sort
+   * @param start index position to start sorting from
+   * @param end index position to stop sorting
    */
-  private static void insertionSort(int[] array) {
-    efwf
-
-  } 
-
-
-
+  private static void bubble(int[] array, int start, int end) {
+    for (int i = 0; i < array.length -1; i++) {
+      for (int j = i+1; j > 0; j--) {
+          if (array[j-1] >= array[j]) {
+            swap(array, j, j-1);
+          }
+      }
+    }
+  }
   /****************** Other miscellaneous methods ********************/
 
-   
+  /**
+   * non recurcive insertion sort
+   * @param array arry of intergers to sort
+   */
+  public static void insertionSort(int[] array) {
+    insertionSort(array, 0, array.length);
+  }   
 
   /*******************************************************************
    * swap
@@ -214,11 +246,6 @@ public class A2Q1SortingTemplate {
       sorted = array[i-1] <=  array[i];
     return sorted;
   } // end method isSorted
-
-  public static boolean isSorted () {
-    
-  }
-
   /*******************************************************************
   * checkArray
   *
