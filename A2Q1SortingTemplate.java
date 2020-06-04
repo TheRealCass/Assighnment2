@@ -16,7 +16,7 @@ public class A2Q1SortingTemplate {
 
     // Control the testing
     private static final int ARRAY_SIZE = 10000;
-    private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
+    private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
     private static final String NS = " nano secounds.";
 
     // Control the randomness
@@ -130,13 +130,13 @@ public class A2Q1SortingTemplate {
 				insertionSort( array );
 				stop = System.nanoTime();
 				checkArray(array, "Insertion sort");
+        } else if ( whichSort == BUBBLE_SORT ) {
+				start = System.nanoTime();
+        bubbleSort( array );
+				stop = System.nanoTime();
+				checkArray(array, "Bubble sort");
         } 
-        // else if ( whichSort == BUBBLE_SORT ) {
-				// start = System.nanoTime();
-        // bubbleSort( array );
-				// stop = System.nanoTime();
-				// checkArray(array, "Bubble sort");
-		    // } else if ( whichSort == SELECTION_SORT ) {
+        // else if ( whichSort == SELECTION_SORT ) {
 				// start = System.nanoTime();
 				// selectionSort( array );
 				// stop = System.nanoTime();
@@ -190,19 +190,17 @@ public class A2Q1SortingTemplate {
 
 
   /**
-   * non recurcive insertion sort
+   * non recurcive bubble sort
    * @param array arry of intergers to sort
-   * @param start index position to start sorting from
-   * @param end index position to stop sorting
    */
-  private static void bubble(int[] array, int start, int end) {
-    for (int i = 0; i < array.length -1; i++) {
-      for (int j = i+1; j > 0; j--) {
-          if (array[j-1] >= array[j]) {
-            swap(array, j, j-1);
+  private static void bubbleSort(int[] array) {
+    while (!isSorted(array)) {
+      for (int i = 0; i < array.length; i++) {
+          if ((i + 1 < array.length) && (array[i] > array[i+1])) {
+              swap(array, i, i+1);
           }
       }
-    }
+  }
   }
   /****************** Other miscellaneous methods ********************/
 
