@@ -6,16 +6,22 @@ import java.util.Arrays;
 public class SelectionSort {
 
 
+    private static final boolean DEBUG = false;
+
     public static void main(String[] args) {
         int[] input = { 4, 2, 9, 6, 23, 12, 34, 0, 1 }; // array to be sorted
-        //selectionSortv2(input);
+        int[] input2 = { 4, 2, 9, 6, 23, 12, 34, 0, 1 }; // array to be sorted
+        System.out.println("Asian dude\n");
+        selectionSortv2(input);
+        System.out.println("\nMe\n");
+        sortV101(input2);
 
 
 
 
 
 
-        //System.out.println(findMinV101(input, 0, 3));
+        //System.out.println(findMin(input, 0, input.length));
 
 
     }
@@ -24,12 +30,19 @@ public class SelectionSort {
 
     /**
      * non recursive selection sort
-     * 
      * @param array array to sort
      * @return void
      */
     public static void selectionSort(int[] array) {
-
+        for (int i = 0; i < array.length; i++) {
+            int min = i;
+            int nm = findMin(array, i, array.length);
+            if(min != nm){
+                swap(array, min, nm);
+                if(DEBUG)
+                    System.out.println("sorting: " + Arrays.toString(array));
+            }
+        }
     }
 
     /**
@@ -78,6 +91,7 @@ public class SelectionSort {
 
     /**
      * v2
+     * asian dude
      */
     public static void selectionSortv2(int[] arr){
 
@@ -104,9 +118,23 @@ public class SelectionSort {
 
     /**
      * v1.1
+     * piece de resistance
      * @param toSort
      */
     public static void sortV101(int[] toSort) {
+        System.out.println("to sort: " + Arrays.toString(toSort));
+
+        
+        for (int i = 0; i < toSort.length; i++) {
+            int min = i;
+            int nm = findMin(toSort, i, toSort.length);
+            if(min != nm){
+                swap(toSort, min, nm);
+                System.out.println("sorting: " + Arrays.toString(toSort));
+            }
+        }
+       
+        System.out.println("Sorted: " + Arrays.toString(toSort));
 
     }
     
