@@ -6,6 +6,8 @@ public class BubleSort {
 
     //this might be bubble sort
     
+    private static final boolean DEBUG = true;
+
     public static void main(String[] args) {
         int[] input = { 4, 2, 9, 6, 23, 12, 34, 0, 1 }; // array to be sorte
         System.out.println(Arrays.toString(input));
@@ -23,6 +25,8 @@ public class BubleSort {
             for (int i = 0; i < toSort.length; i++) {
                 if ((i + 1 < toSort.length) && (toSort[i] > toSort[i+1])) {
                     swap(toSort, i, i+1);
+                    if(DEBUG)
+                        System.out.println(Arrays.toString(toSort));
                 }
             }
         }

@@ -9,7 +9,7 @@ import java.io.*;
  *
  */
 
-public class A2Q1SortingTemplate {
+public class AhamedRubaitA1Q1 {
 
     //bedug
     private static final boolean DEBUG = true;
@@ -179,7 +179,7 @@ public class A2Q1SortingTemplate {
    * @param end index position to stop sorting
    */
   private static void insertionSort(int[] array, int start, int end) {
-    for (int i = 0; i < array.length -1; i++) {
+    for (int i = start; i < end -1; i++) {
       for (int j = i+1; j > 0; j--) {
           if (array[j-1] >= array[j]) {
             swap(array, j, j-1);
@@ -200,13 +200,14 @@ public class A2Q1SortingTemplate {
               swap(array, i, i+1);
           }
       }
-  }
+    }
   }
   /****************** Other miscellaneous methods ********************/
 
   /**
    * non recurcive insertion sort
    * @param array arry of intergers to sort
+   * @return (void)
    */
   public static void insertionSort(int[] array) {
     insertionSort(array, 0, array.length);

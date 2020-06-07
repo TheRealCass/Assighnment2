@@ -1,4 +1,8 @@
+import java.util.Arrays;
+
 public class InsertionSort {
+    private static final boolean DEBUG = true;
+
     public static void main(String[] args) {
         int[] input = { 4, 2, 9, 6, 23, 12, 34, 0, 1 }; // array to be sorted
         sort(input, 0, input.length);
@@ -8,16 +12,22 @@ public class InsertionSort {
         System.out.println();
         
     }
+    
+    public static void sort(int[] toSort){
+        sort(toSort, 0, toSort.length);
+    }
 
 
 
     //fianl compleate version without wile loop
-    public static void sort (int[] toSort, int start, int end) {
+    private static void sort (int[] toSort, int start, int end) {
 
-        for (int i = 0; i < toSort.length -1; i++) {
+        for (int i = start; i < toSort.length -1; i++) {
             for (int j = i+1; j > 0; j--) {
                 if (toSort[j-1] >= toSort[j]) {
                     swap(toSort, j, j-1);
+                    if(DEBUG)
+                        System.out.println(Arrays.toString(toSort));
                 }
             }
         }
