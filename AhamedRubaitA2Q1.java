@@ -8,7 +8,7 @@ import java.io.*;
  * COMP 2140 SECTION D01 SUMMER 2020
  *
  */
-public class AhamedRubaitA1Q1 {
+public class AhamedRubaitA2Q1 {
   // Control the testing
   private static final int ARRAY_SIZE = 10000;
   private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
@@ -124,13 +124,14 @@ public class AhamedRubaitA1Q1 {
 				stop = System.nanoTime();
         checkArray(array, "Selection sort");
         
-      } 
-      //else if ( whichSort == MERGE_SORT ) {
-				// start = System.nanoTime();
-				// mergeSort( array );
-				// stop = System.nanoTime();
-				// checkArray(array, "Merge sort");
-		    // } else if ( whichSort == QUICK_SORT ) {
+      } else if ( whichSort == MERGE_SORT ) {
+        
+        start = System.nanoTime();
+				mergeSort( array );
+				stop = System.nanoTime();
+        checkArray(array, "Merge sort");
+        }
+        // else if ( whichSort == QUICK_SORT ) {
 				// start = System.nanoTime();
 				// quickSort( array );
 				// stop = System.nanoTime();
@@ -162,6 +163,7 @@ public class AhamedRubaitA1Q1 {
    * @param array arry of intergers to sort
    * @param start index position to start sorting from
    * @param end index position to stop sorting
+   * @see swap
    */
   private static void insertionSort(int[] array, int start, int end) {
     for (int i = start; i < end -1; i++) {
@@ -177,6 +179,8 @@ public class AhamedRubaitA1Q1 {
   /**
    * non recurcive bubble sort
    * @param array arry of intergers to sort
+   * @see swap
+   * @see isSorted
    */
   private static void bubbleSort(int[] array) {
     while (!isSorted(array)) {
@@ -193,6 +197,8 @@ public class AhamedRubaitA1Q1 {
      * non recursive selection sort
      * @param array array to sort
      * @return void
+     * @see swap
+     * @see findMin
      */
     public static void selectionSort(int[] array) {
       for (int i = 0; i < array.length; i++) {
@@ -203,7 +209,90 @@ public class AhamedRubaitA1Q1 {
           }
       }
   }
+
+
+  /**
+     * sorts and merges the 2 halves as it progresses
+     * @param toSort    array to sort
+     * @param start     start position to sort from
+     * @param mid       middle position of the array
+     * @param end       position to stop sorting from
+     * @param newArr    temp array to store the sorted data
+     * @see private method: mergeSort
+     */
+    private static void merge(int[] toSort, int start, int mid, int end, int[] newArr) {
+
+      newArr = new int [end - start +1];
+
+      int leftArrIndex = start;
+      int rightArrIndex = mid + 1;
+      int newArrIndex = 0;
+      
+      while (leftArrIndex <= mid && rightArrIndex <= end) {
+          if (toSort[leftArrIndex] > toSort[rightArrIndex]) {
+              newArr[newArrIndex] = toSort[rightArrIndex];
+              rightArrIndex++;
+              newArrIndex++;
+          } else {
+              newArr[newArrIndex] = toSort[leftArrIndex];
+              leftArrIndex++;
+              newArrIndex++;
+          }
+      }
+
+      while (leftArrIndex <= mid) {
+          newArr[newArrIndex] = toSort[leftArrIndex];
+          newArrIndex++;
+          leftArrIndex++;
+      }
+      while (rightArrIndex <= end) {
+          newArr[newArrIndex] = toSort[rightArrIndex];
+          newArrIndex++;
+          rightArrIndex++;
+      }
+
+      for (int k = 0; k < newArr.length; k++) {
+          toSort[start + k] = newArr[k];
+      }
+
+  }
   /****************** Other miscellaneous methods ********************/
+
+
+  /**
+     * breaks downs the array till the length is 1 and calls merge method
+     * @param toSort    array to sort
+     * @param start start position to sort from
+     * @param end   position to stop sorting from
+     * @param newArr    temp array to store sorted data in
+     * @see merge
+     * @see public method: mergeSort
+     */
+    private static void mergeSort(int[] toSort, int start, int end, int[] newArr) {
+      if (start >= end) {
+          return;
+      } else {
+          int midPoint = (start + end) /2;
+          mergeSort(toSort, start, midPoint, newArr);
+          mergeSort(toSort, midPoint + 1, end, newArr);
+          merge(toSort, start, midPoint, end, newArr);
+      }
+  }
+
+
+  /**
+     * recursive merge sort
+     * calls helep recursive method
+     * 
+     * @param toSort array to sort
+     * @see private method: mergeSort
+     * 
+     */
+    public static void mergeSort(int[] toSort) {
+      int[] newArr = null;
+      mergeSort(toSort, 0, toSort.length -1, newArr);
+
+  }
 
   /**
    * non recurcive insertion sort
