@@ -4,7 +4,7 @@ public class QuickSortv2 {
 
 
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private static Random generator = new Random(System.nanoTime());
 
     public static void main(String[] args) {
@@ -38,35 +38,33 @@ public class QuickSortv2 {
     
     private static void quickSort(int[] toSort, int start, int end) {
         int pivotPos;
-        if (2 == (end - start)) {
-            if (toSort[start + 1] < toSort[start]) {
-                swap(toSort, start, start + 1);   
-            }
-        } else if (2 < (end - start) ) {
-            choosePivot(toSort, start, end);
-            pivotPos = partition(toSort, start, end);
-            quickSort(toSort, start, pivotPos);
-            quickSort(toSort, pivotPos + 1, end); 
-        }  
+        if (start < end) { 
+          //choosePivot(toSort, start, end);
+          pivotPos = partition(toSort, start, end); 
+          quickSort(toSort, start, pivotPos - 1); 
+          quickSort(toSort, pivotPos + 1, end); 
+        }
     }
 
-    private static int partition(int[] toSort, int start, int end) {
-        int bigStart = start + 1;
-        int pivot = toSort[start];
-        for (int curr = start + 1; curr < end; curr++) {
-            if(toSort[curr] <= pivot) {
-                swap(toSort, bigStart++, curr);
-            }
+    private static int partition(int arr[], int start, int end) {
+        int pivot = arr[end];  
+        int bigstart = (start - 1); // index of smaller element 
+        for (int j = start; j < end; j++) { 
+          // If current element is smaller than the pivot 
+          if (arr[j] < pivot) { 
+            swap(arr, ++bigstart, j);
+          } 
         }
-        swap(toSort, start, bigStart - 1);
-        return bigStart -1;
+        // swap arr[i+1] and arr[high] (or pivot)
+         swap(arr, bigstart + 1, end);
+        return bigstart+1; 
     }
 
     private static void choosePivot(int[] toSort, int start, int end) {
-        int medOfThree = (end - start) >> 1;
+        int medOfThree = (end - start) / 2;
         if(DEBUG)
             System.out.println("pivot: " + toSort[medOfThree]);
-        swap(toSort, medOfThree, start);
+        swap(toSort, medOfThree, end);
     }
 
     private static void swap( int[] array, int i, int j ) {

@@ -11,8 +11,8 @@ import java.io.*;
 public class AhamedRubaitA2Q1 {
   // Control the testing
   private static final int ARRAY_SIZE = 10000;
-  //private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
-  private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
+  private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
+  //private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
   //sample size ahs been reset.
   private static final String NS = " nano secounds.";
 
@@ -267,28 +267,12 @@ public class AhamedRubaitA2Q1 {
     * @param end index to stop sorting
     */
   private static void quickSort(int[] toSort, int start, int end) {
-    if(2 == (end - start)) {
-      if (toSort[start + 1] < toSort[start]) {
-      swap(toSort, start, start + 1);   
-      }
-    } else if (start < end) { 
-      choosePivot(toSort, start, end);
+    if (start < end) { 
+      //choosePivot(toSort, start, end);
       int pivotPos = partition(toSort, start, end); 
       quickSort(toSort, start, pivotPos - 1); 
       quickSort(toSort, pivotPos + 1, end); 
     } 
-
-    // int pivotPos;
-    // if (2 == (end - start)) {
-    //     if (toSort[start + 1] < toSort[start]) {
-    //       swap(toSort, start, start + 1);   
-    //     }
-    // } else if (2 < (end - start) ) {
-    //   choosePivot(toSort, start, end);
-    //   pivotPos = partition(toSort, start, end);
-    //   quickSort(toSort, start, pivotPos);
-    //   quickSort(toSort, pivotPos + 1, end);
-    // }
   }
 
   /****************** Other miscellaneous methods ********************/
@@ -309,14 +293,13 @@ public class AhamedRubaitA2Q1 {
     for (int j = start; j < end; j++) { 
       // If current element is smaller than the pivot 
       if (arr[j] < pivot) { 
-        bigstart++; 
-        swap(arr, bigstart, j);
+        swap(arr, ++bigstart, j);
       } 
     }
     // swap arr[i+1] and arr[high] (or pivot)
-    swap(arr, bigstart + 1, end);
+     swap(arr, bigstart + 1, end);
     return bigstart+1; 
-  } 
+  }
 
 
   /**
@@ -328,8 +311,8 @@ public class AhamedRubaitA2Q1 {
     * @see quickSort
     */
   private static void choosePivot(int[] toSort, int start, int end) {
-    int medOfThree = (end - start) >> 1;
-    swap(toSort, medOfThree, end);
+    
+    swap(toSort, (end - start) / 2, end);
   }
 
 
@@ -338,8 +321,8 @@ public class AhamedRubaitA2Q1 {
     * @param toSort
     * @see private method: quickSort
     */
-  public static void quickSort(int[] toSort) {
-    quickSort(toSort, 0, toSort.length -1);
+   public static  void quickSort(int [] toSort) {
+    quickSort(toSort, 0, toSort.length - 1);
   }
 
 
