@@ -141,13 +141,12 @@ public class AhamedRubaitA2Q1 {
 				hybridQuickSort( array );
 				stop = System.nanoTime();
 				checkArray(array, "Hybrid quick sort");
-      } 
-        // else if ( whichSort == SHELL_SORT ) {
-				// start = System.nanoTime();
-				// shellSort( array );
-				// stop = System.nanoTime();
-				// checkArray(array, "Shell sort");
-        // }
+      } else if ( whichSort == SHELL_SORT ) {
+				start = System.nanoTime();
+				shellSort( array );
+				stop = System.nanoTime();
+				checkArray(array, "Shell sort");
+        }
 		    elapsedTime = stop - start;
 		    sortTime[i] = elapsedTime;
 		} // end for
@@ -158,6 +157,26 @@ public class AhamedRubaitA2Q1 {
 
 
   /********** Add sort methods here ********************/
+
+
+  /**
+    * non recursive shell short
+    * @param toSort array to sort
+    */
+   public static void shellSort(int[] toSort) {
+    int size = toSort.length;
+    for (int gap = size / 2; gap > 0; gap /= 2) {
+        for (int i = gap; i < size; i++) {
+            int key = toSort[i];
+            int j = i;
+            while ((j >= gap) && (toSort[j - gap] > key)) {
+                toSort[j] = toSort[j - gap];
+                j -= gap;
+            }
+            toSort[j] = key;
+        }
+    }
+}
 
 
   /**
@@ -382,7 +401,7 @@ public class AhamedRubaitA2Q1 {
     * @see private method: quickSort
     */
    public static  void quickSort(int [] toSort) {
-    choosePivot(toSort, 0, toSort.length - 1);
+     choosePivot(toSort, 0, toSort.length - 1);
     quickSort(toSort, 0, toSort.length - 1);
   }
 
