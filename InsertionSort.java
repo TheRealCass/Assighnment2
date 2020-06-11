@@ -22,7 +22,7 @@ public class InsertionSort {
     //fianl compleate version without wile loop
     private static void sort (int[] toSort, int start, int end) {
 
-        for (int i = start; i < toSort.length -1; i++) {
+        for (int i = start; i < end -1; i++) {
             for (int j = i+1; j > 0; j--) {
                 if (toSort[j-1] >= toSort[j]) {
                     swap(toSort, j, j-1);

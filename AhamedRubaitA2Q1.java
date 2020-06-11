@@ -11,8 +11,8 @@ import java.io.*;
 public class AhamedRubaitA2Q1 {
   // Control the testing
   private static final int ARRAY_SIZE = 10000;
-  private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
-  //private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
+  //private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
+  private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
   //sample size ahs been reset.
   private static final String NS = " nano secounds.";
 
@@ -136,13 +136,13 @@ public class AhamedRubaitA2Q1 {
 				quickSort( array );
 				stop = System.nanoTime();
 				checkArray(array, "Quick sort");
+      } else if ( whichSort == HYBRID_QUICK_SORT ) {
+				start = System.nanoTime();
+				hybridQuickSort( array );
+				stop = System.nanoTime();
+				checkArray(array, "Hybrid quick sort");
       } 
-        //else if ( whichSort == HYBRID_QUICK_SORT ) {
-				// start = System.nanoTime();
-				// hybridQuickSort( array );
-				// stop = System.nanoTime();
-				// checkArray(array, "Hybrid quick sort");
-		    // } else if ( whichSort == SHELL_SORT ) {
+        // else if ( whichSort == SHELL_SORT ) {
 				// start = System.nanoTime();
 				// shellSort( array );
 				// stop = System.nanoTime();
@@ -159,22 +159,26 @@ public class AhamedRubaitA2Q1 {
 
   /********** Add sort methods here ********************/
 
+
   /**
    * non recurcive insertion sort
+   * 
    * @param array arry of intergers to sort
    * @param start index position to start sorting from
-   * @param end index position to stop sorting
+   * @param end   index position to stop sorting
    * @see swap
    */
-  private static void insertionSort(int[] array, int start, int end) {
+  private static void insertionSort(int[] toSort, int start, int end) {
+
+
     for (int i = start; i < end -1; i++) {
       for (int j = i+1; j > 0; j--) {
-          if (array[j-1] >= array[j]) {
-            swap(array, j, j-1);
+          if (toSort[j-1] >= toSort[j]) {
+              swap(toSort, j, j-1);
           }
       }
     }
-  }
+	}
 
 
   /**
@@ -267,15 +271,59 @@ public class AhamedRubaitA2Q1 {
     * @param end index to stop sorting
     */
   private static void quickSort(int[] toSort, int start, int end) {
-    if (start < end) { 
-      //choosePivot(toSort, start, end);
-      int pivotPos = partition(toSort, start, end); 
-      quickSort(toSort, start, pivotPos - 1); 
-      quickSort(toSort, pivotPos + 1, end); 
-    } 
+    // base condition
+    if (start >= end) {
+      return;
+    } else { 
+    // rearrange the elements across pivot
+    int pivot = partition(toSort, start, end);
+    quickSort(toSort, start, pivot - 1);
+    quickSort(toSort, pivot + 1, end);
+    }
+  }
+
+
+  /**
+   * hybrid quick sort
+   * if array to sort has less then 50 items, insertion sort is done
+   * else, quick sort is done recurcively
+   * @param toSort array to sort
+   * @param start index position to start sorting from
+   * @param end index position to end sortiog
+   * @see driver Method: hybridQuickSort 
+   */
+  private static void hybridQuickSort(int[] toSort, int start, int end) {
+		while (start < end) {
+			// do insertion sort if 50 or smaller
+			if (end - start <= BREAKPOINT) {
+        insertionSort(toSort, start, end +1);
+        break;
+			} else {
+				int pivot = partition(toSort, start, end);
+				// tail call optimizations - recur on smaller sub-array
+				if ((pivot - start) < (end - pivot)) {
+					hybridQuickSort(toSort, start, pivot - 1);
+					start = pivot + 1;
+				} else {
+					hybridQuickSort(toSort, pivot + 1, end);
+					end = pivot - 1;
+				}
+			}
+		}
   }
 
   /****************** Other miscellaneous methods ********************/
+
+
+  /**
+   * recurcive hybrod quick sort
+   * calls herlper method to do recurtion
+   * @param array
+   * @see private method: hybridQuickSort
+   */
+  private static void hybridQuickSort(int[] array) {
+    hybridQuickSort(array, 0 , array.length - 1);
+  }
 
   /**
    * swaps the small elements to the left and the big elemnts to the right of the
@@ -287,19 +335,31 @@ public class AhamedRubaitA2Q1 {
    * @return (int)
    * @see quickSort
    */
-  private static int partition(int arr[], int start, int end) {
-    int pivot = arr[end];  
-    int bigstart = (start - 1); // index of smaller element 
-    for (int j = start; j < end; j++) { 
-      // If current element is smaller than the pivot 
-      if (arr[j] < pivot) { 
-        swap(arr, ++bigstart, j);
-      } 
+  public static int partition (int[] toSort, int start, int end)
+	{
+		// Pick rightmost element as pivot from the array
+    int pivot = toSort[end];
+    
+		// elements less than pivot will be pushed to the left of pIndex
+		// elements more than pivot will be pushed to the right of pIndex
+		// equal elements can go either way
+		int pIndex = start;
+
+		// each time we finds an element less than or equal to pivot,
+		// pIndex is incremented and that element would be placed
+		// before the pivot.
+		for (int i = start; i < end; i++) {
+			if (toSort[i] <= pivot) {
+        swap(toSort, i, pIndex++);
+			}
     }
-    // swap arr[i+1] and arr[high] (or pivot)
-     swap(arr, bigstart + 1, end);
-    return bigstart+1; 
-  }
+        
+    // swap pIndex with Pivot
+    swap(toSort, end, pIndex);
+
+		// return pIndex (index of pivot element)
+		return pIndex;
+	}
 
 
   /**
@@ -311,8 +371,8 @@ public class AhamedRubaitA2Q1 {
     * @see quickSort
     */
   private static void choosePivot(int[] toSort, int start, int end) {
-    
-    swap(toSort, (end - start) / 2, end);
+    int med = start + ((end - start) / 2);
+    swap(toSort, med+1, end);
   }
 
 
