@@ -11,7 +11,7 @@ import java.io.*;
 public class AhamedRubaitA2Q1 {
   // Control the testing
   private static final int ARRAY_SIZE = 10000;
-  private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
+  private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
   //sample size ahs been reset.
   private static final String NS = " nano secounds.";
 
@@ -125,12 +125,12 @@ public class AhamedRubaitA2Q1 {
         checkArray(array, "Selection sort");
         
       } else if ( whichSort == MERGE_SORT ) {
-        
         start = System.nanoTime();
 				mergeSort( array );
 				stop = System.nanoTime();
         checkArray(array, "Merge sort");
-        }
+        
+      }
         // else if ( whichSort == QUICK_SORT ) {
 				// start = System.nanoTime();
 				// quickSort( array );
@@ -260,7 +260,7 @@ public class AhamedRubaitA2Q1 {
 
 
   /**
-     * breaks downs the array till the length is 1 and calls merge method
+     * breaks downs the array till the length is 1, recursively and calls merge method
      * @param toSort    array to sort
      * @param start start position to sort from
      * @param end   position to stop sorting from
@@ -298,6 +298,7 @@ public class AhamedRubaitA2Q1 {
    * non recurcive insertion sort
    * @param array arry of intergers to sort
    * @return (void)
+   * @see private method: insertionSort
    */
   public static void insertionSort(int[] array) {
     insertionSort(array, 0, array.length);
@@ -310,6 +311,7 @@ public class AhamedRubaitA2Q1 {
    * @param start index to start looking from
    * @param end index to end looking
    * @return the index of the smallest item in the array
+   * @see selectionSort
    */
    private static int findMin(int[] array, int start, int end) {
     int index = start;
