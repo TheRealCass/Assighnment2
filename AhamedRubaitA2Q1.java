@@ -382,6 +382,7 @@ public class AhamedRubaitA2Q1 {
     * @see private method: quickSort
     */
    public static  void quickSort(int [] toSort) {
+    choosePivot(toSort, 0, toSort.length - 1);
     quickSort(toSort, 0, toSort.length - 1);
   }
 
