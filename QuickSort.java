@@ -1,158 +1,81 @@
-import java.util.Arrays;
-
-public class QuickSort {
-
-
-
-    private static final boolean DEBUG = true;
-
-    public static void main(String[] args) {
-
-        int[] input = { 4, 2, 9, 6, 23, 12, 34, 0, 1 }; // array to be sorte
-        System.out.println("to sort: " + Arrays.toString(input));
-        QuickSort qs = new QuickSort();
-        qs.sort(input);
-
-        System.out.println("Sorted: " + Arrays.toString(input));
-
-        
-
-
-
-    }
-
-
-    // public static void quickSort(int[] toSort) {
-    //     quickSort(toSort, 0, toSort.length);
-    // }
-
-    // private static void quickSort(int[] toSort, int start, int end) {
-
-    //     int pivotPos;
-        
-    //     if (2 == (end - start)) {
-    //         if (toSort[start + 1] < toSort[start]) {
-    //             swap(toSort, start, start + 1);
-    //         }
-    //     } else if (2 < (end - start) ) {
-    //         choosePivot(toSort, start, end);
-    //     }
-    //     // if(1 < end - start) {
-    //     //     choosePivot(toSort, start, end);
-    //     //     pivotPos = partition(toSort, start, end);
-    //     //     quickSort(toSort, start, pivotPos);
-    //     //     quickSort(toSort, pivotPos + 1, end);
-    //     // }
-    // }
-
-    // private static int partition(int[] toSort, int start, int end) {
-    //     return 0;
-    // }
-
-    // private static void choosePivot(int[] toSort, int start, int end) {
-    // }
-
-    // private static void swap( int[] array, int i, int j ) {
-	// 	int temp = array[ i ];
-	// 	array[ i ] = array[ j ];
-	// 	array[ j ] = temp;
-    // } // end swap
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //=-==================================================v2==============================================
-
-    int[] array;
-
-    public int[] sort (int[] array) {
-        this.array = array;
-        quickSort (0, array.length -1);
-        return array;
-    }
-
-    public void quickSort(int start, int end) {
-        if(start >= end) {
-            return;
+// Java program for implementation of QuickSort 
+class QuickSort 
+{ 
+    /* This function takes last element as pivot, 
+       places the pivot element at its correct 
+       position in sorted array, and places all 
+       smaller (smaller than pivot) to left of 
+       pivot and all greater elements to right 
+       of pivot */
+    int partition(int arr[], int low, int high) 
+    { 
+        int pivot = arr[high];  
+        int i = (low-1); // index of smaller element 
+        for (int j=low; j<high; j++) 
+        { 
+            // If current element is smaller than the pivot 
+            if (arr[j] < pivot) 
+            { 
+                i++; 
+  
+                // swap arr[i] and arr[j] 
+                int temp = arr[i]; 
+                arr[i] = arr[j]; 
+                arr[j] = temp; 
+            } 
+        } 
+  
+        // swap arr[i+1] and arr[high] (or pivot) 
+        int temp = arr[i+1]; 
+        arr[i+1] = arr[high]; 
+        arr[high] = temp; 
+  
+        return i+1; 
+    } 
+  
+  
+    /* The main function that implements QuickSort() 
+      arr[] --> Array to be sorted, 
+      low  --> Starting index, 
+      high  --> Ending index */
+    void sort(int arr[], int low, int high) 
+    { 
+        if (low < high) 
+        { 
+            /* pi is partitioning index, arr[pi] is  
+              now at right place */
+            int pi = partition(arr, low, high); 
+  
+            // Recursively sort elements before 
+            // partition and after partition 
+            sort(arr, low, pi-1); 
+            sort(arr, pi+1, high); 
+        } 
+    } 
+  
+    /* A utility function to print array of size n */
+    static void printArray(int arr[]) 
+    { 
+        int n = arr.length; 
+        for (int i=0; i<n; ++i) 
+            System.out.print(arr[i]+" "); 
+        System.out.println(); 
+    } 
+  
+    // Driver program 
+    public static void main(String args[]) 
+    { 
+        int[] arr = new int[50];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] =(int) (Math.random() * 100.0);
         }
-
-        if(DEBUG)
-            System.out.println("quicksort from " + array[start] + " to " + array[end]);
-
-
-        int pivot = array[end];
-        if(DEBUG)
-            System.out.println("pivot selected as :" + pivot);
-
-        
-        int counter = start;
-
-        for (int i = start; i < end; i++) {
-            
-            if((array[i] - pivot) <= 0) {
-
-                if(DEBUG)
-                    System.out.println(array[i] + " is smaller then " + pivot);
-
-
-                swap(i, counter++);
-                if(DEBUG){
-                    System.out.println("sorting: " + Arrays.toString(array));
-                    System.out.println("counter index position:" + counter);
-                }
-
-            } else {
-                if(DEBUG)
-                    System.out.println(array[i] + " is not smaller then " + pivot + "\t no change done");
-            }
-        }
-
-        swap(counter, end);
-        if(DEBUG)
-            System.out.println("sorting: " + Arrays.toString(array));
-
-        quickSort(start, counter -1);
-        quickSort(counter +1, end);
-    }
-
-    public void swap(int i, int j) {
-        if(DEBUG)
-            System.out.println("Swaping " + array[i] + " with " + array[j]);
-        int temp = array[j];
-        array[j] = array[i];
-        array[i] = temp;
-    }
-    
-}
+        int n = arr.length; 
+  
+        QuickSort ob = new QuickSort(); 
+        ob.sort(arr, 0, n-1); 
+  
+        System.out.println("sorted array"); 
+        printArray(arr); 
+    } 
+} 
+/*This code is contributed by Rajat Mishra */

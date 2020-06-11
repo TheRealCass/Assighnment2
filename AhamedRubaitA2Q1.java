@@ -11,7 +11,8 @@ import java.io.*;
 public class AhamedRubaitA2Q1 {
   // Control the testing
   private static final int ARRAY_SIZE = 10000;
-  private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
+  //private static final int SAMPLE_SIZE = 300; // The number of trials in each experiment.
+  private static final int SAMPLE_SIZE = 5; // The number of trials in each experiment.
   //sample size ahs been reset.
   private static final String NS = " nano secounds.";
 
@@ -130,13 +131,13 @@ public class AhamedRubaitA2Q1 {
 				stop = System.nanoTime();
         checkArray(array, "Merge sort");
         
-      }
-        // else if ( whichSort == QUICK_SORT ) {
-				// start = System.nanoTime();
-				// quickSort( array );
-				// stop = System.nanoTime();
-				// checkArray(array, "Quick sort");
-		    // } else if ( whichSort == HYBRID_QUICK_SORT ) {
+      } else if ( whichSort == QUICK_SORT ) {
+				start = System.nanoTime();
+				quickSort( array );
+				stop = System.nanoTime();
+				checkArray(array, "Quick sort");
+      } 
+        //else if ( whichSort == HYBRID_QUICK_SORT ) {
 				// start = System.nanoTime();
 				// hybridQuickSort( array );
 				// stop = System.nanoTime();
@@ -194,89 +195,172 @@ public class AhamedRubaitA2Q1 {
 
 
   /**
-     * non recursive selection sort
-     * @param array array to sort
-     * @return void
-     * @see swap
-     * @see findMin
-     */
-    public static void selectionSort(int[] array) {
-      for (int i = 0; i < array.length; i++) {
-          int min = i;
-          int nm = findMin(array, i, array.length);
-          if(min != nm){
-              swap(array, min, nm);
-          }
+   * non recursive selection sort
+   * @param array array to sort
+   * @return void
+   * @see swap
+   * @see findMin
+   */
+  public static void selectionSort(int[] array) {
+    for (int i = 0; i < array.length; i++) {
+      int min = i;
+      int nm = findMin(array, i, array.length);
+      if(min != nm){
+        swap(array, min, nm);
       }
+    }
   }
 
 
   /**
-     * sorts and merges the 2 halves as it progresses
-     * @param toSort    array to sort
-     * @param start     start position to sort from
-     * @param mid       middle position of the array
-     * @param end       position to stop sorting from
-     * @param newArr    temp array to store the sorted data
-     * @see private method: mergeSort
-     */
-    private static void merge(int[] toSort, int start, int mid, int end, int[] newArr) {
+  * sorts and merges the 2 halves as it progresses
+   * @param toSort    array to sort
+   * @param start     start position to sort from
+   * @param mid       middle position of the array
+   * @param end       position to stop sorting from
+   * @param newArr    temp array to store the sorted data
+   * @see private method: mergeSort
+   */
+  private static void merge(int[] toSort, int start, int mid, int end, int[] newArr) {
 
-      newArr = new int [end - start +1];
+    newArr = new int [end - start +1];
 
-      int leftArrIndex = start;
-      int rightArrIndex = mid + 1;
-      int newArrIndex = 0;
+    int leftArrIndex = start;
+    int rightArrIndex = mid + 1;
+    int newArrIndex = 0;
       
-      while (leftArrIndex <= mid && rightArrIndex <= end) {
-          if (toSort[leftArrIndex] > toSort[rightArrIndex]) {
-              newArr[newArrIndex] = toSort[rightArrIndex];
-              rightArrIndex++;
-              newArrIndex++;
-          } else {
-              newArr[newArrIndex] = toSort[leftArrIndex];
-              leftArrIndex++;
-              newArrIndex++;
-          }
+    while (leftArrIndex <= mid && rightArrIndex <= end) {
+      if (toSort[leftArrIndex] > toSort[rightArrIndex]) {
+        newArr[newArrIndex] = toSort[rightArrIndex];
+        rightArrIndex++;
+        newArrIndex++;
+      } else {
+        newArr[newArrIndex] = toSort[leftArrIndex];
+        leftArrIndex++;
+        newArrIndex++;
       }
+    }
 
-      while (leftArrIndex <= mid) {
-          newArr[newArrIndex] = toSort[leftArrIndex];
-          newArrIndex++;
-          leftArrIndex++;
-      }
-      while (rightArrIndex <= end) {
-          newArr[newArrIndex] = toSort[rightArrIndex];
-          newArrIndex++;
-          rightArrIndex++;
-      }
+    while (leftArrIndex <= mid) {
+      newArr[newArrIndex] = toSort[leftArrIndex];
+      newArrIndex++;
+      leftArrIndex++;
+    }
+    while (rightArrIndex <= end) {
+      newArr[newArrIndex] = toSort[rightArrIndex];
+      newArrIndex++;
+      rightArrIndex++;
+    }
 
-      for (int k = 0; k < newArr.length; k++) {
-          toSort[start + k] = newArr[k];
-      }
+    for (int index = 0; index < newArr.length; index++) {
+      toSort[start + index] = newArr[index];
+    }
 
   }
+
+
+  /**
+    * recursive quick sort
+    * just swaps value if only 2 item to sort
+    * @param toSort arrt to sort
+    * @param start index to start ffrom
+    * @param end index to stop sorting
+    */
+  private static void quickSort(int[] toSort, int start, int end) {
+    if(2 == (end - start)) {
+      if (toSort[start + 1] < toSort[start]) {
+      swap(toSort, start, start + 1);   
+      }
+    } else if (start < end) { 
+      choosePivot(toSort, start, end);
+      int pivotPos = partition(toSort, start, end); 
+      quickSort(toSort, start, pivotPos - 1); 
+      quickSort(toSort, pivotPos + 1, end); 
+    } 
+
+    // int pivotPos;
+    // if (2 == (end - start)) {
+    //     if (toSort[start + 1] < toSort[start]) {
+    //       swap(toSort, start, start + 1);   
+    //     }
+    // } else if (2 < (end - start) ) {
+    //   choosePivot(toSort, start, end);
+    //   pivotPos = partition(toSort, start, end);
+    //   quickSort(toSort, start, pivotPos);
+    //   quickSort(toSort, pivotPos + 1, end);
+    // }
+  }
+
   /****************** Other miscellaneous methods ********************/
 
+  /**
+   * swaps the small elements to the left and the big elemnts to the right of the
+   * pivot
+   * 
+   * @param toSort array to sort
+   * @param start  start position of the partition
+   * @param end    end position of the array to partition
+   * @return (int)
+   * @see quickSort
+   */
+  private static int partition(int arr[], int start, int end) {
+    int pivot = arr[end];  
+    int bigstart = (start - 1); // index of smaller element 
+    for (int j = start; j < end; j++) { 
+      // If current element is smaller than the pivot 
+      if (arr[j] < pivot) { 
+        bigstart++; 
+        swap(arr, bigstart, j);
+      } 
+    }
+    // swap arr[i+1] and arr[high] (or pivot)
+    swap(arr, bigstart + 1, end);
+    return bigstart+1; 
+  } 
+
 
   /**
-     * breaks downs the array till the length is 1, recursively and calls merge method
-     * @param toSort    array to sort
-     * @param start start position to sort from
-     * @param end   position to stop sorting from
-     * @param newArr    temp array to store sorted data in
-     * @see merge
-     * @see public method: mergeSort
-     */
-    private static void mergeSort(int[] toSort, int start, int end, int[] newArr) {
-      if (start >= end) {
-          return;
-      } else {
-          int midPoint = (start + end) /2;
-          mergeSort(toSort, start, midPoint, newArr);
-          mergeSort(toSort, midPoint + 1, end, newArr);
-          merge(toSort, start, midPoint, end, newArr);
-      }
+    * chooces a number using the median of 3 method
+    * then swaps it wwith the first element in the array
+    * @param toSort array to choose pivot from
+    * @param start index position to start from
+    * @param end index position to end to
+    * @see quickSort
+    */
+  private static void choosePivot(int[] toSort, int start, int end) {
+    int medOfThree = (end - start) >> 1;
+    swap(toSort, medOfThree, end);
+  }
+
+
+  /**
+    * recursive quick sort by callin ganother private method
+    * @param toSort
+    * @see private method: quickSort
+    */
+  public static void quickSort(int[] toSort) {
+    quickSort(toSort, 0, toSort.length -1);
+  }
+
+
+  /**
+   * breaks downs the array till the length is 1, recursively and calls merge method
+   * @param toSort    array to sort
+   * @param start start position to sort from
+   * @param end   position to stop sorting from
+   * @param newArr    temp array to store sorted data in
+   * @see merge
+   * @see public method: mergeSort
+   */
+  private static void mergeSort(int[] toSort, int start, int end, int[] newArr) {
+    if (start >= end) {
+      return;
+    } else {
+      int midPoint = (start + end) /2;
+      mergeSort(toSort, start, midPoint, newArr);
+      mergeSort(toSort, midPoint + 1, end, newArr);
+      merge(toSort, start, midPoint, end, newArr);
+    }
   }
 
 
