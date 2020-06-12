@@ -128,14 +128,20 @@ public class Train {
             }
             temp = temp.getNext();
             index++;
+            
         }
+        if(temp.isSame(cargo)) {
+            remove(index);
+            return;
+        }
+
         
     }
 
     private void remove(int index) {
         if(index == 0) return;
         else if(index == 1) removeFirst();
-        else if (index == length - 1) removelast();
+        else if (index == length) removelast();
         else {
             TrainCart priv = head;
             TrainCart next = null;
