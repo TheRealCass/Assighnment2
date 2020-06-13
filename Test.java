@@ -1,8 +1,23 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
-public class Test {
-    
-    public static void main(String[] args) {
 
+public class Test {
+
+    public static void main(String[] args) throws FileNotFoundException {
+
+        //trainStuff();
+
+
+        Scanner scan = new Scanner(new File("trainInput.txt"));
+        scan.nextLine();
+        String check = scan.nextLine();
+        System.out.println(check);
+        
+    }
+
+    private static void trainStuff() {
+        
         Train t = new Train();
 
         
@@ -30,6 +45,5 @@ public class Test {
         t.remove("engine");
         System.out.println(t);
 
-        
     }
 }

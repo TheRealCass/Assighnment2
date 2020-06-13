@@ -1,20 +1,19 @@
-public class TrainCart {
-    
+public class Node {
+
     private int price;
     private String cargo;
-    private TrainCart next;
-    private TrainCart privious;
+    private Node next;
+    private Node privious;
 
     /**
      * constructor
      */
-    public TrainCart (String cargo, int price) {
+    public Node(String cargo, int price) {
         this.cargo = cargo;
         this.price = price;
         this.privious = null;
         this.next = null;
     }
-
 
     public int getPrice() {
         return this.price;
@@ -24,19 +23,19 @@ public class TrainCart {
         this.price = price;
     }
 
-    public TrainCart getNext() {
+    public Node getNext() {
         return this.next;
     }
 
-    public void setNext(TrainCart next) {
+    public void setNext(Node next) {
         this.next = next;
     }
 
-    public TrainCart getPrivious() {
+    public Node getPrivious() {
         return this.privious;
     }
 
-    public void setPrivious(TrainCart privious) {
+    public void setPrivious(Node privious) {
         this.privious = privious;
     }
 

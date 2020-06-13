@@ -1,8 +1,8 @@
 public class Train {
     
     private static final boolean DEBUG = true;
-    private TrainCart head;
-    private TrainCart tail;
+    private Node head;
+    private Node tail;
     private int length;
 
     /**
@@ -10,25 +10,25 @@ public class Train {
      */
     public Train() {
         this.length = 0;
-        TrainCart engine = new TrainCart("engine", 0);
+        Node engine = new Node("engine", 0);
         this.head = engine;
         this.tail = engine;
     }
 
     
-    public TrainCart getHead() {
+    public Node getHead() {
         return this.head;
     }
 
-    public void setHead(TrainCart head) {
+    public void setHead(Node head) {
         this.head = head;
     }
 
-    public TrainCart getTail() {
+    public Node getTail() {
         return this.tail;
     }
 
-    public void setTail(TrainCart tail) {
+    public void setTail(Node tail) {
         this.tail = tail;
     }
 
@@ -43,7 +43,7 @@ public class Train {
 
     public void addFirst (String cargo, int price) {
         
-        TrainCart toAdd = new TrainCart(cargo, price);
+        Node toAdd = new Node(cargo, price);
         
         if (head.getNext() == null) {
             head.setNext(toAdd);
@@ -51,7 +51,7 @@ public class Train {
             tail = toAdd;
             length++;
         } else {
-            TrainCart temp = head.getNext();
+            Node temp = head.getNext();
             temp.setPrivious(toAdd);
             toAdd.setNext(temp);
             toAdd.setPrivious(head);
@@ -62,7 +62,7 @@ public class Train {
 
     public void addLast (String cargo, int price) {
         
-        TrainCart toAdd = new TrainCart(cargo, price);
+        Node toAdd = new Node(cargo, price);
 
         //if empty list
         if (head.getNext() == null){
@@ -77,7 +77,7 @@ public class Train {
     }
 
     public String toString () {
-        TrainCart cart = head;
+        Node cart = head;
         String toReturn = "[";
         if (cart == null) {
             toReturn += "Empty list!";
@@ -95,7 +95,7 @@ public class Train {
     public void removelast() {
         if (head.getNext() == null) return;
 
-        TrainCart priv = tail.getPrivious();
+        Node priv = tail.getPrivious();
         priv.setNext(null);
         tail.setPrivious(null);
         tail = priv;
@@ -103,7 +103,7 @@ public class Train {
     }
 
     public void removeFirst() {
-        TrainCart temp = head;
+        Node temp = head;
         if(temp.getNext() == null) return; //only 1 element present
         temp = temp.getNext();
         if(temp.getNext() == null) {  //2 element present
@@ -117,7 +117,7 @@ public class Train {
     }
 
     public void remove(String cargo) {
-        TrainCart temp = head;
+        Node temp = head;
         if(temp.getNext() == null) return;
         temp = temp.getNext();
         int index = 1;
@@ -143,8 +143,8 @@ public class Train {
         else if(index == 1) removeFirst();
         else if (index == length) removelast();
         else {
-            TrainCart priv = head;
-            TrainCart next = null;
+            Node priv = head;
+            Node next = null;
             for (int i = 0; i < index - 1; i++) {
                 priv = priv.getNext();
             }
@@ -155,6 +155,10 @@ public class Train {
             length--;
         }
 
+    }
+
+    public void addEngine () {
+        addFirst("engine", 0);
     }
 
 }
