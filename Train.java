@@ -159,6 +159,7 @@ public class Train {
 
     public void addEngine () {
         addFirst("engine", 0);
+        return;
     }
 
 }
